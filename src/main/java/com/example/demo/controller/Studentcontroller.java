@@ -1,5 +1,4 @@
 package com.example.demo.controller;
-
 import com.example.demo.entity.Student;
 import com.example.demo.service.StudentService;
 import org.springframework.http.HttpStatus;
@@ -31,8 +30,8 @@ public Studentcontroller(StudentService studentService){
                 .status(HttpStatus.CREATED)
                 .body(createdStudent);}
 //read one
-        @GetMapping("/get/{id}")
-        public ResponseEntity<Student> getStudent(@PathVariable Long id){
+        @GetMapping("/get")
+        public ResponseEntity<Student> getStudent(@RequestParam Long id){
             Student studentresp = studentService.getStudent(id);
 
             if (studentresp == null) return ResponseEntity.notFound().build();
@@ -48,8 +47,8 @@ public Studentcontroller(StudentService studentService){
         }
 
         // update by id
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Student> updateStudent(@PathVariable Long id,
+    @PutMapping("/update")
+    public ResponseEntity<Student> updateStudent(@RequestParam Long id,            // ?id = value
                                                  @RequestBody Student studentreq){
         Student studentresp = studentService.updateStudent(id,studentreq);
 
@@ -58,7 +57,7 @@ public Studentcontroller(StudentService studentService){
     }
     //delete by id
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deletestudent(@PathVariable Long id ){
+    public ResponseEntity<String> deletestudent(@PathVariable Long id ) {    // "/id"
       Boolean isdeleted = studentService.deletestudent(id);
 
       if (!isdeleted){
@@ -66,7 +65,19 @@ public Studentcontroller(StudentService studentService){
       }
       return ResponseEntity.ok("records deleted");
     }
+    //deletesoftly
 
+    @PatchMapping("/delete-soft/{id}")
+    public ResponseEntity<String> deleteStudentSoftly(@PathVariable Long id) {
+        Boolean isdeleted =
+                studentService.deleteStudentSoftly(id);
+
+        if (!isdeleted) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity
+                .ok("record deleted");
+    }
     }
 
 

@@ -1,15 +1,28 @@
 package com.example.demo.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+
 public class Student {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  //FOR AUTO INCREMENT AND DECREMENT
     private long id;
+@Column (name = "Deleted")
+private Boolean deleted ;
+
 
     private String name;
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
+    }
+
     private int age;
     private String email;
     private int rollNo;

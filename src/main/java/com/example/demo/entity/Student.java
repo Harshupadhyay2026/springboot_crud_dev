@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 
 public class Student {
@@ -9,11 +11,36 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  //FOR AUTO INCREMENT AND DECREMENT
     private long id;
+
 @Column (name = "Deleted")
 private Boolean deleted ;
 
-
     private String name;
+    private int age;
+    private String email;
+    private int rollNo;
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
+
+    public LocalDateTime getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
+    }
+
+    public LocalDateTime getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(LocalDateTime updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    public long getId() {
+        return id;
+    }
 
     public Boolean getDeleted() {
         return deleted;
@@ -21,14 +48,6 @@ private Boolean deleted ;
 
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
-    }
-
-    private int age;
-    private String email;
-    private int rollNo;
-
-    public long getId() {
-        return id;
     }
 
     public void setId(long id) {

@@ -1,14 +1,16 @@
 package com.example.demo.controller;
+import com.example.demo.dto.CreateStudentRequestdto;
+import com.example.demo.dto.CreateStudentResponsedto;
+import com.example.demo.dto.UpdateStudentRequestdto;
+import com.example.demo.dto.UpdateStudentResponsedto;
 import com.example.demo.entity.Student;
 import com.example.demo.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping("/api/students")
@@ -22,25 +24,27 @@ public Studentcontroller(StudentService studentService){
 
  //create student
     @PostMapping("/create")
-    public ResponseEntity<Student> createStudent(@RequestBody Student student){
+    public ResponseEntity<CreateStudentResponsedto> createStudent(
+          @Valid @RequestBody
+            CreateStudentRequestdto studentRequestdto){
 
-      Student createdStudent =  studentService.createStudent(student);
+        CreateStudentResponsedto createdStudent =  studentService.createStudent(studentRequestdto);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(createdStudent);}
 //read one
         @GetMapping("/get")
-        public ResponseEntity<Student> getStudent(@RequestParam Long id){
-            Student studentresp = studentService.getStudent(id);
+        public ResponseEntity<CreateStudentResponsedto> getStudent(@RequestParam Long id){
+            CreateStudentResponsedto studentresp = studentService.getStudent(id);
 
             if (studentresp == null) return ResponseEntity.notFound().build();
             return ResponseEntity.ok(studentresp);
         }
         // read all
         @GetMapping("/getAll")
-        public ResponseEntity<List<Student>> getAllStudent(){
-            List<Student> studentlost = studentService.getAllStudent();
+        public ResponseEntity<List<CreateStudentResponsedto>> getAllStudent(){
+            List<CreateStudentResponsedto> studentlost = studentService.getAllStudent();
 
             if (studentlost.isEmpty()) return ResponseEntity.notFound().build();
             return ResponseEntity.ok(studentlost);
@@ -48,9 +52,9 @@ public Studentcontroller(StudentService studentService){
 
         // update by id
     @PutMapping("/update")
-    public ResponseEntity<Student> updateStudent(@RequestParam Long id,            // ?id = value
-                                                 @RequestBody Student studentreq){
-        Student studentresp = studentService.updateStudent(id,studentreq);
+    public ResponseEntity<UpdateStudentResponsedto> updateStudent(@RequestParam Long id,            // ?id = value
+                                                                  @RequestBody UpdateStudentRequestdto studentReq){
+       UpdateStudentResponsedto studentresp = studentService.updateStudent(id,studentReq);
 
         if (studentresp == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(studentresp);

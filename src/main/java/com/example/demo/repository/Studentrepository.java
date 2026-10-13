@@ -14,3 +14,4 @@ Optional<Student> findByIdAndDeletedIsFalse(Long id);
 List<Student>  findByDeletedIsFalse();
 
 }
+

@@ -23,7 +23,7 @@ public Studentcontroller(StudentService studentService){
     }
 
  //create student
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<CreateStudentResponsedto> createStudent(
           @Valid @RequestBody
             CreateStudentRequestdto studentRequestdto){
@@ -33,54 +33,44 @@ public Studentcontroller(StudentService studentService){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(createdStudent);}
+
 //read one
-        @GetMapping("/get")
-        public ResponseEntity<CreateStudentResponsedto> getStudent(@RequestParam Long id){
+        @GetMapping("/{id}")
+        public ResponseEntity<CreateStudentResponsedto> getStudent(@PathVariable Long id){
             CreateStudentResponsedto studentresp = studentService.getStudent(id);
 
-            if (studentresp == null) return ResponseEntity.notFound().build();
             return ResponseEntity.ok(studentresp);
         }
+
         // read all
-        @GetMapping("/getAll")
+        @GetMapping
         public ResponseEntity<List<CreateStudentResponsedto>> getAllStudent(){
             List<CreateStudentResponsedto> studentlost = studentService.getAllStudent();
 
-            if (studentlost.isEmpty()) return ResponseEntity.notFound().build();
             return ResponseEntity.ok(studentlost);
         }
 
         // update by id
-    @PutMapping("/update")
+    @PutMapping
     public ResponseEntity<UpdateStudentResponsedto> updateStudent(@RequestParam Long id,            // ?id = value
                                                                   @RequestBody UpdateStudentRequestdto studentReq){
        UpdateStudentResponsedto studentresp = studentService.updateStudent(id,studentReq);
-
-        if (studentresp == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(studentresp);
     }
     //delete by id
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping
     public ResponseEntity<String> deletestudent(@PathVariable Long id ) {    // "/id"
-      Boolean isdeleted = studentService.deletestudent(id);
-
-      if (!isdeleted){
-          return ResponseEntity.notFound().build();
-      }
-      return ResponseEntity.ok("records deleted");
+       studentService.deletestudent(id);
+      return ResponseEntity.noContent().build();
     }
     //deletesoftly
 
     @PatchMapping("/delete-soft/{id}")
     public ResponseEntity<String> deleteStudentSoftly(@PathVariable Long id) {
-        Boolean isdeleted =
-                studentService.deleteStudentSoftly(id);
 
-        if (!isdeleted) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity
-                .ok("record deleted");
+                studentService.deleteStudentSoftly(id);
+               return ResponseEntity
+                .noContent().build();
     }
     }
 

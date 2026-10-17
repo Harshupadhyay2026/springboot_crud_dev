@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface Studentrepository extends JpaRepository <Student,Long> {
 Optional<Student> findByIdAndDeletedIsFalse(Long id);
 List<Student>  findByDeletedIsFalse();
+Boolean existsByEmail(String emailId);
 
 }
 

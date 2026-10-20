@@ -25,7 +25,7 @@ public class Loggingfilter implements Filter {
 
 
     String requestId = UUID.randomUUID().toString();
-    httpServletResponse.setHeader("X - Request-Id",requestId); // getting request id
+    httpServletResponse.setHeader("X - Request-Id " ,requestId); // getting request id
 
     //Request log
         System.out.println("Incoming Request " +

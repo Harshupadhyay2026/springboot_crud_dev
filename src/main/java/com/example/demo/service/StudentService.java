@@ -29,7 +29,14 @@ public class StudentService {
     throw new DuplicateREsourceException("Student with email" + student.getEmail() + "already exists");
 }
 
+        try {
+            Thread.sleep(3000);
+        }
+        catch (Exception e){}
+
         Student studentResp = studentrepository.save(student);
+
+
         return mapToDto(studentResp);}
 
 

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.UUID;
 
-@Component
-@Order(2)
+//@Component
+//@Order(2)
 public class Loggingfilter implements Filter {
 
 @Override

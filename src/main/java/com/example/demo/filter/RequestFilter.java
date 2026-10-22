@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-@Component
+//@Component
 public class RequestFilter implements Filter {
     public  void doFilter(ServletRequest request,
                           ServletResponse response,

@@ -29,7 +29,7 @@ public Studentcontroller(StudentService studentService){
             CreateStudentRequestdto studentRequestdto){
 
         CreateStudentResponsedto createdStudent =  studentService.createStudent(studentRequestdto);
-        System.out.println("student created");
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(createdStudent);}
